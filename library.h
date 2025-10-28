@@ -27,9 +27,12 @@ public:
     vector<Book*> searchBooksByAuthor(const string& author);
     vector<Book*> getAvailableBooks();
     vector<Book*> getAllBooks();
-    
+
     // Nouvelle fonction pour trier les livres par titre
     vector<Book*> sortBooksByTitle();
+    
+    // Nouvelle fonction pour trier les livres par auteur
+    vector<Book*> sortBooksByAuthor();
     
     // User management
     void addUser(const User& user);
