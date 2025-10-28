@@ -28,6 +28,9 @@ public:
     vector<Book*> getAvailableBooks();
     vector<Book*> getAllBooks();
     
+    // Nouvelle fonction pour trier les livres par titre
+    vector<Book*> sortBooksByTitle();
+    
     // User management
     void addUser(const User& user);
     User* findUserById(const string& userId);

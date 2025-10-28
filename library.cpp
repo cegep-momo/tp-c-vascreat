@@ -54,6 +54,23 @@ vector<Book*> Library::searchBooksByTitle(const string& title) {
     return results;
 }
 
+// Nouvelle fonction pour trier les livres par titre
+vector<Book*> Library::sortBooksByTitle() {
+    vector<Book*> sortedBooks = getAllBooks();
+    std::sort(sortedBooks.begin(), sortedBooks.end(), [](Book* a, Book* b) {
+        return a->getTitle() < b->getTitle();
+    });
+
+    cout << "\n=== TOUS LES LIVRES TRIER DE A-Z ===\n";
+    for (size_t i = 0; i < sortedBooks.size(); ++i) {
+        cout << "\nLivre " << (i + 1) << " :\n";
+        cout << sortedBooks[i]->toString() << "\n";
+        cout << "-------------------------\n";
+    }
+    
+    return sortedBooks;
+}
+
 // Search books by author (case-insensitive partial match)
 vector<Book*> Library::searchBooksByAuthor(const string& author) {
     vector<Book*> results;
@@ -152,6 +169,8 @@ void Library::displayAllBooks() {
         cout << "Aucun livre dans la bibliothèque.\n";
         return;
     }
+
+    
     
     cout << "\n=== TOUS LES LIVRES ===\n";
     for (size_t i = 0; i < books.size(); ++i) {
@@ -159,6 +178,8 @@ void Library::displayAllBooks() {
         cout << books[i]->toString() << "\n";
         cout << "-------------------------\n";
     }
+
+
 }
 
 // Display available books
