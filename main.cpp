@@ -5,6 +5,9 @@
 #include "library.h"
 #include "filemanager.h"
 
+// nouveau import
+#include <algorithm>
+
 using namespace std;
 
 void clearScreen() {
@@ -84,14 +87,23 @@ int main() {
                 break;
             }
             
-            case 2: { // Remove Book
+            case 2: { // Remove Book demande une confirmation avant de supprimer
                 string isbn = getInput("Entrez l'ISBN du livre à supprimer : ");
+                std::string removeAllowed = getInput("Êtes-vous sûr de vouloir supprimer ce livre ? (oui/non) : ");
+                std::transform(removeAllowed.begin(), removeAllowed.end(), removeAllowed.begin(), ::tolower);
+
+                if(removeAllowed == "oui") {
+                    if (library.removeBook(isbn)) {
+                        cout << "Livre supprimé avec succès !\n";
+                    } else {
+                        cout << "Livre non trouvé.\n";
+                    }
                 
-                if (library.removeBook(isbn)) {
-                    cout << "Livre supprimé avec succès !\n";
                 } else {
-                    cout << "Livre non trouvé.\n";
+                    cout << "Suppression annulée.\n";
+                    break;
                 }
+
                 pauseForInput();
                 break;
             }
@@ -109,6 +121,7 @@ int main() {
                         cout << results[i]->toString() << "\n";
                         cout << "-----------------------------\n";
                     }
+                    
                 }
                 pauseForInput();
                 break;
@@ -132,16 +145,22 @@ int main() {
                 break;
             }
             
-            case 5: // Display All Books
-                library.displayAllBooks();
+            case 5: { // Display All Books
+                std::string triAllowed = getInput("Voulais vous afficher les livres en tri alphabetique par titre ou par auteur? (titre/auteur) : ");
+                std::transform(triAllowed.begin(), triAllowed.end(), triAllowed.begin(), ::tolower);
+                if (triAllowed == "titre"){
+                    library.sortBooksByTitle();
+                } else {
+                    library.sortBooksByAuthor();
+                }
                 pauseForInput();
                 break;
-            
-            case 6: // Display Available Books
+            }
+            case 6: { // Display Available Books
                 library.displayAvailableBooks();
                 pauseForInput();
                 break;
-            
+            }
             case 7: { // Add User
                 string name = getInput("Entrez le nom de l'utilisateur : ");
                 string userId = getInput("Entrez l'ID de l'utilisateur : ");
