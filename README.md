@@ -16,3 +16,8 @@ Il contient 2 fichiers `books.txt`et `users.txt` que vous pouvez utilisez pour t
 Pour ca il suffit de les copiers dans le repertoire `build` avec l'application `bibliotheque`
 
 Nazimzhon Mullabaev
+
+QUESTION 1 : Nous avons pas parler de la class c++ ofstream pour ecrire dans un fichier
+
+
+QUESTION 2 : L'utilisation d'une database avec SQL. SQL vas permettre de gerer une grande base de donner de livre.

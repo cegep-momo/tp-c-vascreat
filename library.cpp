@@ -234,6 +234,7 @@ void Library::displayAllUsers() {
 
 // Statistics
 int Library::getTotalBooks() const { return books.size(); }
+
 int Library::getAvailableBookCount() const {
     return count_if(books.begin(), books.end(),
         [](const unique_ptr<Book>& book) {
