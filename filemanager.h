@@ -11,11 +11,13 @@ class FileManager {
 private:
     string booksFileName;
     string usersFileName;
+    string activityLogsFileName;
 
 public:
     // Constructor
     FileManager(const string& booksFile = "books.txt", 
-                const string& usersFile = "users.txt");
+                const string& usersFile = "users.txt",
+                const string& activityLogsFile = "activity_logs.txt");
     
     // File operations
     bool saveLibraryData(Library& library);
@@ -26,7 +28,10 @@ public:
     bool saveUsersToFile(Library& library);
     bool loadBooksFromFile(Library& library);
     bool loadUsersFromFile(Library& library);
-    
+
+    // New method to save activity logs borrower names, borrowed what and when
+    bool saveActivityLogs(Library& library);
+
     // Utility methods
     bool fileExists(const string& filename);
     void createBackup();

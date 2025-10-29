@@ -6,12 +6,12 @@
 using namespace std;
 
 // Constructor
-FileManager::FileManager(const string& booksFile, const string& usersFile)
-    : booksFileName(booksFile), usersFileName(usersFile) {}
+FileManager::FileManager(const string& booksFile, const string& usersFile, const string& activityLogsFile)
+    : booksFileName(booksFile), usersFileName(usersFile), activityLogsFileName(activityLogsFile) {}
 
 // Save all library data
 bool FileManager::saveLibraryData(Library& library) {
-    return saveBooksToFile(library) && saveUsersToFile(library);
+    return saveBooksToFile(library) && saveUsersToFile(library) && saveActivityLogs(library);
 }
 
 // Load all library data
@@ -49,6 +49,30 @@ bool FileManager::saveUsersToFile(Library& library) {
     auto users = library.getAllUsers();
     for (User* user : users) {
         file << user->toFileFormat() << "\n";
+    }
+    
+    file.close();
+    return true;
+}
+
+bool FileManager::saveActivityLogs(Library& library) {
+    ofstream file(activityLogsFileName); // Append mode
+    if (!file.is_open()) {
+        cout << "Erreur : Impossible d'ouvrir activity_logs.txt en écriture.\n";
+        return false;
+    }
+    
+    auto users = library.getAllUsers();
+    for (User* user : users) {
+        for (const string isbn : user->getBorrowedBooks()) {
+            Book* book = library.findBookByISBN(isbn);
+            if (book) {
+                file << "Utilisateur: " << user->getName() 
+                     << ", Livre: " << book->getTitle() 
+                     << ", ISBN: " << isbn 
+                     << ", Date d'emprunt: " << __DATE__ << "\n";
+            }
+        }
     }
     
     file.close();
