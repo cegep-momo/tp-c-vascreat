@@ -35,6 +35,7 @@ void displayMenu() {
     cout << "11. Statistiques de la Bibliothèque\n";
     cout << "12. Sauvegarder les Données\n";
     cout << "13. Créer une Sauvegarde\n";
+    cout << "14. Sauvegarder les Journaux d'Activité\n";
     cout << "0.  Quitter\n";
     cout << "======================================================\n";
     cout << "Entrez votre choix : ";
@@ -228,6 +229,11 @@ int main() {
             
             case 13: { // Create Backup
                 fileManager.createBackup();
+                pauseForInput();
+                break;
+            }
+            case 14: {
+                fileManager.saveActivityLogs(library);
                 pauseForInput();
                 break;
             }
